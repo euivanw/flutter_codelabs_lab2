@@ -80,6 +80,15 @@ class PalavrasRandomicasState extends State<PalavrasRandomicas> {
         jaFoiSalva ? Icons.favorite : Icons.favorite_border,
         color: jaFoiSalva ? Colors.red : null,
       ),
+      onTap: () {
+        setState(() {
+          if (jaFoiSalva) {
+            _salvos.remove(par);
+          } else {
+            _salvos.add(par);
+          }
+        });
+      },
     );
   }
 }
