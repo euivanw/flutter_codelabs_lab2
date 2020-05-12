@@ -20,6 +20,7 @@ class PalavrasRandomicas extends StatefulWidget {
 
 class PalavrasRandomicasState extends State<PalavrasRandomicas> {
   final List<WordPair> _sugestoes = <WordPair>[];
+  final Set<WordPair> _salvos = Set<WordPair>();
   final TextStyle _tamanhoDaFonte = const TextStyle(fontSize: 18);
 
   @override
@@ -68,11 +69,16 @@ class PalavrasRandomicasState extends State<PalavrasRandomicas> {
     );
   }
 
-  Widget _construirLinha(WordPair pair) {
+  Widget _construirLinha(WordPair par) {
+    final bool jaFoiSalva = _salvos.contains(par);
     return ListTile(
       title: Text(
-        pair.asPascalCase,
+        par.asPascalCase,
         style: _tamanhoDaFonte,
+      ),
+      trailing: Icon(
+        jaFoiSalva ? Icons.favorite : Icons.favorite_border,
+        color: jaFoiSalva ? Colors.red : null,
       ),
     );
   }
