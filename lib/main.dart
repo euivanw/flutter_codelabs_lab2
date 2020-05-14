@@ -23,11 +23,43 @@ class PalavrasRandomicasState extends State<PalavrasRandomicas> {
   final Set<WordPair> _salvos = Set<WordPair>();
   final TextStyle _tamanhoDaFonte = const TextStyle(fontSize: 18);
 
+  void _navegarParaSalvos() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          final Iterable<ListTile> itens = _salvos.map(
+            (WordPair pair) {
+              return ListTile(
+                title: Text(
+                  pair.asPascalCase,
+                  style: _tamanhoDaFonte,
+                ),
+              );
+            },
+          );
+          final List<Widget> dividida = ListTile.divideTiles(
+            context: context,
+            tiles: itens,
+          ).toList();
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Sugestões Salvas'),
+            ),
+            body: ListView(children: dividida),
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Bem-vindo(a) ao Flutter'),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.list), onPressed: _navegarParaSalvos),
+        ],
       ),
       body: _construirSugestoes(),
     );
